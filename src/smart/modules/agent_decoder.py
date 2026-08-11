@@ -159,8 +159,6 @@ class SMARTAgentDecoder(nn.Module):
         inference=False,
     ):
         n_agent, n_step, traj_dim = pos_a.shape
-        _device = pos_a.device
-
         veh_mask = agent_type == 0
         ped_mask = agent_type == 1
         cyc_mask = agent_type == 2
@@ -168,8 +166,8 @@ class SMARTAgentDecoder(nn.Module):
         agent_token_emb_veh = self.token_emb_veh(trajectory_token_veh)
         agent_token_emb_ped = self.token_emb_ped(trajectory_token_ped)
         agent_token_emb_cyc = self.token_emb_cyc(trajectory_token_cyc)
-        agent_token_emb = torch.zeros(
-            (n_agent, n_step, self.hidden_dim), device=_device, dtype=pos_a.dtype
+        agent_token_emb = agent_token_emb_veh.new_zeros(
+            (n_agent, n_step, self.hidden_dim)
         )
         agent_token_emb[veh_mask] = agent_token_emb_veh[agent_token_index[veh_mask]]
         agent_token_emb[ped_mask] = agent_token_emb_ped[agent_token_index[ped_mask]]
