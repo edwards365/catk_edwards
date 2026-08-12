@@ -58,3 +58,21 @@ WOSAC fields were NaN with `scenario_counter=0`, as expected: the fast config
 sets `n_batch_wosac_metric=0`. These NaNs are disabled metrics, not failed
 rollouts. The next run increases closed-loop rollouts from 8 to 32 on the same
 20 batches to test whether the method ordering is stable.
+
+## 32-Rollout Stability Check
+
+| Model | Open-loop accuracy | Open-loop loss | Closed-loop ADE |
+|---|---:|---:|---:|
+| BC | 0.73981 | 3.02632 | 0.51370 |
+| Top-K | 0.64372 | 3.84451 | 1.11559 |
+| CAT-K | **0.74374** | 3.14562 | **0.45407** |
+
+All three jobs ended with `run.py DONE!!!`. CAT-K reduced 32-rollout ADE by
+about 11.6% relative to BC and 59.3% relative to Top-K, preserving the same
+ordering as the eight-rollout check. Increasing the rollout count lowered all
+reported minADE values, which is expected because the metric selects the best
+sample from a larger set.
+
+The next stage enables WOSAC for 10 scenarios using the existing split
+validation TFRecords. This is a pipeline and directional-metric check, not a
+claim of full-validation statistical significance.
