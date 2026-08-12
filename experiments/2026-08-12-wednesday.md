@@ -33,7 +33,28 @@ completed training runs or checkpoint files.
 
 ## Next Gate
 
-- Validate that all three checkpoints load.
-- Run identical open-loop loss and token accuracy evaluation.
-- Run identical eight-rollout closed-loop minADE evaluation.
-- Compare BC, Top-K, and CAT-K without WOSAC protobuf generation first.
+- [x] Validate that all three checkpoints load.
+- [x] Run identical open-loop loss and token accuracy evaluation.
+- [x] Run identical eight-rollout closed-loop minADE evaluation.
+- [x] Compare BC, Top-K, and CAT-K without WOSAC protobuf generation first.
+
+## Fast Validation Results
+
+The common validation used 20 batches, eight closed-loop rollouts, seed 817,
+Top-K probability sampling with `K=48`, and no WOSAC protobuf generation.
+
+| Model | Open-loop accuracy | Open-loop loss | Closed-loop ADE |
+|---|---:|---:|---:|
+| BC | 0.73969 | 3.02632 | 0.73187 |
+| Top-K | 0.64372 | 3.84451 | 1.54520 |
+| CAT-K | **0.74374** | 3.14561 | **0.69320** |
+
+CAT-K reduced closed-loop ADE by about 5.3% relative to BC and by about 55.1%
+relative to Top-K. Top-K substantially degraded both open-loop and closed-loop
+performance in this small-data run. CAT-K slightly improved token accuracy over
+BC, although its open-loop cross-entropy was about 3.9% higher.
+
+WOSAC fields were NaN with `scenario_counter=0`, as expected: the fast config
+sets `n_batch_wosac_metric=0`. These NaNs are disabled metrics, not failed
+rollouts. The next run increases closed-loop rollouts from 8 to 32 on the same
+20 batches to test whether the method ordering is stable.
