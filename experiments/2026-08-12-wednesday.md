@@ -76,3 +76,17 @@ sample from a larger set.
 The next stage enables WOSAC for 10 scenarios using the existing split
 validation TFRecords. This is a pipeline and directional-metric check, not a
 claim of full-validation statistical significance.
+
+## WOSAC-10 Pipeline Check
+
+| Model | Internal ADE | WOSAC minADE | Realism | Kinematic | Interactive | Map-based |
+|---|---:|---:|---:|---:|---:|---:|
+| BC | 0.52713 | 3.04823 | 0.63502 | 0.40561 | 0.64812 | 0.74927 |
+| Top-K | 1.19706 | 5.43904 | 0.41148 | 0.28533 | 0.41630 | 0.47735 |
+| CAT-K | **0.43947** | **2.33511** | **0.65274** | **0.41658** | **0.66353** | **0.77383** |
+
+Each run evaluated 10 scenarios and ended with `run.py DONE!!!`. CAT-K improved
+all reported WOSAC buckets over BC, while Top-K degraded all of them. Relative
+to BC, CAT-K reduced WOSAC minADE by about 23.4% and increased the realism meta
+metric by about 2.8%. Because 10 scenarios are too few for a robust claim, the
+next gate evaluates a fixed prefix of up to 50 available validation scenarios.
