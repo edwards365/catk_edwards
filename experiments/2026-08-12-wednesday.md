@@ -90,3 +90,31 @@ all reported WOSAC buckets over BC, while Top-K degraded all of them. Relative
 to BC, CAT-K reduced WOSAC minADE by about 23.4% and increased the realism meta
 metric by about 2.8%. Because 10 scenarios are too few for a robust claim, the
 next gate evaluates a fixed prefix of up to 50 available validation scenarios.
+
+## WOSAC-50 Results
+
+| Model | Internal ADE | WOSAC minADE | Realism | Kinematic | Interactive | Map-based |
+|---|---:|---:|---:|---:|---:|---:|
+| BC | 0.40880 | 2.90008 | 0.63274 | 0.45459 | 0.68090 | 0.67263 |
+| Top-K | 0.97641 | 5.47954 | 0.42266 | 0.30521 | 0.45353 | 0.45009 |
+| CAT-K | **0.35203** | **2.60756** | **0.64844** | **0.46061** | **0.68125** | **0.71360** |
+
+All runs evaluated 50 scenarios and ended normally. Relative to BC, CAT-K
+reduced internal ADE by about 13.9%, reduced WOSAC minADE by about 10.1%, and
+increased the realism meta metric by about 2.5%. CAT-K also led every reported
+WOSAC bucket. The method ordering is now consistent at 8 rollouts, 32
+rollouts, WOSAC-10, and WOSAC-50.
+
+## Storage Gate
+
+The server root filesystem is 99% used, with 22 GB free out of 1.9 TB. The
+available source data contains only three training TFRecord shards, already
+expanded into all 1,522 processed training scenarios. The current cache also
+contains 287 validation and 307 testing scenarios. Medium-scale reproduction
+therefore requires additional Waymo shards and a separate data volume.
+
+The planned medium run must use a new mount with at least 500 GB free; 1 TB is
+preferred. Raw Waymo files and processed caches must live on that mount. The
+existing server remains suitable for code, checkpoints, and GPU training after
+the new volume is attached. Do not download or preprocess more data into the
+current 22 GB overlay.
