@@ -104,3 +104,8 @@ experiment protocol are documented in
 [docs/repro_3090_week.md](docs/repro_3090_week.md). Daily results are tracked in
 [experiments/](experiments/README.md). Dataset caches, checkpoints, and raw
 TFRecords are intentionally excluded from Git.
+
+The completed SMART-mini comparison is summarized in
+[experiments/smart_mini_results.md](experiments/smart_mini_results.md). The next
+10k-scenario rental-server run is specified in
+[docs/medium_scale_repro.md](docs/medium_scale_repro.md).
