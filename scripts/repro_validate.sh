@@ -15,4 +15,5 @@ python -m src.run \
   ckpt_path="$CATK_CKPT" \
   data.val_batch_size="$VAL_BATCH_SIZE" \
   data.num_workers="$NUM_WORKERS" \
-  task_name="$TASK_NAME"
+  task_name="$TASK_NAME" \
+  "$@"
