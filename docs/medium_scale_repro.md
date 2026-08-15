@@ -1,9 +1,11 @@
 # CATK Medium-Scale Reproduction Plan
 
-This stage scales the verified SMART-mini comparison from 1,522 training
-scenarios to a deterministic 10,000/500 train/validation split. It follows the
-upstream CATK sequence: WOMD preprocessing, BC pre-training, matched Top-K and
-CAT-K fine-tuning, common closed-loop validation, then WOSAC evaluation.
+This stage originally targeted a deterministic 10,000/500 split and was
+expanded on the rental server to 19,611 training and 1,151 validation
+scenarios. It follows the upstream CATK sequence: WOMD preprocessing, BC
+pre-training, matched Top-K and CAT-K fine-tuning, common closed-loop
+validation, then WOSAC evaluation. Measured results are recorded in
+`experiments/medium_20k_results.md`.
 
 ## Rental Target
 

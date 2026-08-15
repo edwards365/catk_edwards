@@ -19,3 +19,8 @@ Current schedule:
 - Friday: common validation and rollout inspection.
 - Saturday: medium-data run or rental-server expansion decision.
 - Sunday: final evaluation, tables, and reproduction summary.
+
+Completed result summaries:
+
+- `smart_mini_results.md`: 1,522/287 SMART-mini comparison.
+- `medium_20k_results.md`: 19,611/1,151 A100 comparison and WOSAC-20.
