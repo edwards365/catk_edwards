@@ -1,0 +1,28 @@
+# @package _global_
+
+defaults:
+  - override /model: smart_mini_3M
+
+model:
+  model_config:
+    val_open_loop: true
+    val_closed_loop: true
+    n_rollout_closed_val: 8
+    n_batch_wosac_metric: 0
+    n_vis_batch: 0
+    validation_rollout_sampling:
+      criterium: topk_prob
+      num_k: 48
+      temp: 1.0
+
+trainer:
+  limit_val_batches: 20
+  precision: 16-mixed
+
+data:
+  val_batch_size: 1
+  num_workers: 4
+  pin_memory: false
+
+action: validate
+ckpt_path: null
